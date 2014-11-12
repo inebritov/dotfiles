@@ -26,6 +26,7 @@ set smartcase
 set nobackup
 set nowritebackup
 set noswapfile
+set whichwrap=<,>,[,],h,l
 
 map <C-S> <esc>:update<CR>
 map <C-Q> <esc>:q<CR>
@@ -36,6 +37,7 @@ map <Leader>t <esc>:tabnew<CR>
 map <Leader>Q :q!<CR>
 map <Leader>q :q<CR>
 map <Leader>s :update<CR>
+map Q <esc><Leader>ig
 
 vnoremap o :sort<CR>
 vnoremap < <gv
@@ -79,8 +81,7 @@ let g:airline#extensions#tabline#enabled = 1
 " linemovement
 " git clone https://github.com/yueyoum/vim-linemovement ~/.vim/bundle/vim-linemovement
 
-
-
+"
 
 
 
