@@ -119,4 +119,7 @@ if ! shopt -oq posix; then
 fi
 
 # enable symfony2 app/console autocomplete
-source ~/.SFConsole
+if [-f ~/.SFConsole]; then
+  source ~/.SFConsole
+fi
+

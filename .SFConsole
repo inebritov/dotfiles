@@ -58,3 +58,4 @@ complete -F _console console-prod
 complete -F _console console-staging
 complete -F _console Symfony
 COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
+
