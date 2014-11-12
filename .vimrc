@@ -26,6 +26,7 @@ set smartcase
 set nobackup
 set nowritebackup
 set noswapfile
+set clipboard=unnamedplus
 set whichwrap=<,>,[,],h,l
 
 map <C-S> <esc>:update<CR>
