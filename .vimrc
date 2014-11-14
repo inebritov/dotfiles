@@ -45,6 +45,8 @@ vnoremap > >gv
 " Visual settings
 colorscheme inkpot
 set number
+set listchars=tab:>-
+set list
 
 " ==========================================================================
 " Plugins settings
@@ -74,4 +76,41 @@ let g:airline#extensions#tabline#enabled = 1
 " ctrlp
 " git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp.vim
 let g:ctrlp_show_hidden = 1
+
+
+" python-mode
+" git clone https://github.com/klen/python-mode
+map <Leader>g :call RopeGotoDefinition()<CR>
+let ropevim_enable_shortcuts = 1
+let g:pymode_rope_goto_def_newwin = 'vnew'
+let g:pymode_rope_extended_complete = 1
+let g:pymode_breakpoint = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_builtin_objs = 0
+let g:pymode_syntax_builtin_funcs = 0
+map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+
+set completeopt=longest,menuone
+function! OmniPopup(action)
+  if pumvisible()
+    if a:action == 'j'
+      return "\<C-N>"
+    elseif a:action == 'k'
+      return "\<C-P>"
+    endif
+  endif
+
+  return a:action
+endfunction
+
+inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+
+" python folding
+" mkdir -p ~/.vim/ftplugin
+" wget -O ~/.vim/ftplugin/python_editing.vim
+" http://www.vim.org/scriptw/download_script.php?src_id=5492
+set nofoldenable
+
+
 
