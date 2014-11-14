@@ -8,10 +8,6 @@ case $- in
       *) return;;
 esac
 
-# locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -65,7 +61,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]\[\e[00;31m\]☭\[\e[0m\]\[\e[00;36m\]\h\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\T\[\e[0m\]\[\e[00;37m\]]\[\e[0m\] \w \[\e[00;35m\]\\$\e[0m\] \n'
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]\[\e[00;31m\]@\[\e[0m\]\[\e[00;36m\]\h\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\T\[\e[0m\]\[\e[00;37m\]]\[\e[0m\] \w \[\e[00;35m\]\\$\e[0m\] \n'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -74,7 +70,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]\[\e[00;31m\]☭\[\e[0m\]\[\e[00;36m\]\h\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\T\[\e[0m\]\[\e[00;37m\]]\[\e[0m\] \w \[\e[00;35m\]\\$\e[0m\] \n'
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]\[\e[00;31m\]@\[\e[0m\]\[\e[00;36m\]\h\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\T\[\e[0m\]\[\e[00;37m\]]\[\e[0m\] \w \[\e[00;35m\]\\$\e[0m\] \n'
 	# PS1="[\e[0;32m\u@\h\e[m] \e[0;37m\w\e[m \e[0;35m\$\e[m \n"
     # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
@@ -127,8 +123,4 @@ fi
 if [ -f ~/.SFConsole ]; then
   source ~/.SFConsole
 fi
-
-# locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
 
