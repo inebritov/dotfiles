@@ -4,19 +4,13 @@ filetype plugin indent on
 syntax on
 
 " Vim behavior
-autocmd! bufwritepost .vimrc source %
-
 let mapleader=","
 
 set mouse=a
 set history=700
 set undolevels=800
 
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set shiftround
-set expandtab
+set tabstop=4 shiftwidth=4 expandtab
 
 set hlsearch
 set incsearch
@@ -26,19 +20,23 @@ set smartcase
 set nobackup
 set nowritebackup
 set noswapfile
-set clipboard=unnamedplus
+set bs=2
+set pastetoggle=<Leader>p
+set clipboard=unnamed
 set whichwrap=<,>,[,],h,l
 
 map <C-S> <esc>:update<CR>
 map <C-Q> <esc>:q<CR>
-map <Leader>, <esc>:tabnext<CR>
-map <Leader>. <esc>:tabprevious<CR>
-map <Leader>w <esc>:tabclose<CR>
-map <Leader>t <esc>:tabnew<CR>
+map <Leader>, <esc>:bn<CR>
+map <Leader>. <esc>:bp<CR>
+map <Leader>w <esc>:bd<CR>
+map <Leader>f <esc>:b 
+map <Leader>e <esc>:e 
 map <Leader>Q :q!<CR>
 map <Leader>q :q<CR>
 map <Leader>s :update<CR>
-map Q <esc><Leader>ig
+imap <C-S> <esc>:update<CR>
+imap <C-Q> <esc>:q<CR>
 
 vnoremap o :sort<CR>
 vnoremap < <gv
@@ -46,16 +44,7 @@ vnoremap > >gv
 
 " Visual settings
 colorscheme inkpot
-highlight ExtraWhitespace ctermbg=red
-match ExtraWhitespace /\s\+$/
-set ts=4 sw=4 noet
 set number
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  ctermbg=darkgrey
-hi IndentGuidesEven ctermbg=darkgrey
-
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
 
 " ==========================================================================
 " Plugins settings
@@ -82,7 +71,7 @@ let g:airline#extensions#tabline#enabled = 1
 " linemovement
 " git clone https://github.com/yueyoum/vim-linemovement ~/.vim/bundle/vim-linemovement
 
-"
-
-
+" ctrlp
+" git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp.vim
+let g:ctrlp_show_hidden = 1
 
