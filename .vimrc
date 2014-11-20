@@ -30,8 +30,8 @@ map <C-Q> <esc>:q<CR>
 map <Leader>, <esc>:bn<CR>
 map <Leader>. <esc>:bp<CR>
 map <Leader>w <esc>:bd<CR>
-map <Leader>f <esc>:b 
-map <Leader>e <esc>:e 
+map <Leader>f <esc>:b
+map <Leader>e <esc>:e
 map <Leader>Q :q!<CR>
 map <Leader>q :q<CR>
 map <Leader>s :update<CR>
@@ -43,7 +43,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Visual settings
-colorscheme inkpot
+colorscheme eclipse
 set number
 set listchars=tab:>-
 set list
@@ -72,39 +72,14 @@ let g:airline#extensions#tabline#enabled = 1
 
 " linemovement
 " git clone https://github.com/yueyoum/vim-linemovement ~/.vim/bundle/vim-linemovement
+let g:linemovement_up="<s-Up>"
+let g:linemovement_down="<s-Down>"
 
 " ctrlp
 " git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp.vim
 let g:ctrlp_show_hidden = 1
-
-
-" python-mode
-" git clone https://github.com/klen/python-mode
-map <Leader>g :call RopeGotoDefinition()<CR>
-let ropevim_enable_shortcuts = 1
-let g:pymode_rope_goto_def_newwin = 'vnew'
-let g:pymode_rope_extended_complete = 1
-let g:pymode_breakpoint = 0
-let g:pymode_syntax = 1
-let g:pymode_syntax_builtin_objs = 0
-let g:pymode_syntax_builtin_funcs = 0
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
-set completeopt=longest,menuone
-function! OmniPopup(action)
-  if pumvisible()
-    if a:action == 'j'
-      return "\<C-N>"
-    elseif a:action == 'k'
-      return "\<C-P>"
-    endif
-  endif
-
-  return a:action
-endfunction
-
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+let g:ctrlp_map="<c-p>"
+let g:ctrlp_cmd="CtrlP"
 
 " python folding
 " mkdir -p ~/.vim/ftplugin
@@ -112,5 +87,100 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " http://www.vim.org/scriptw/download_script.php?src_id=5492
 set nofoldenable
 
+" python-jedi
+let g:jedi#popup_select_first=0
 
+" python-mode
+" git clone http://github.com/klen/python-mode
+let g:pymode_rope=0
+let g:pymode_rope_completion=0
+let g:pymode_rope_complete_on_dot=0
+
+let g:pymode_doc=0
+let g:pymode_doc_key='K'
+let g:pymode_lint=1
+let g:pymode_lint_checker="pyflakes,pep8"
+let g:pymode_lint_ignore="E501,W601,C0110"
+let g:pymode_lint_write=1
+
+let g:pymode_virtualenv=1
+
+let g:pymode_breakpoint=1
+let g:pymode_breakpoint_key="<Leader>b"
+
+let g:pymode_syntax=1
+let g:pymode_syntax_all=1
+let g:pymode_syntax_indent_errors=g:pymode_syntax_all
+let g:pymode_syntax_space_errors=g:pymode_syntax_all
+
+let g:pymode_folding=0
+let g:pymode_run=0
+
+"=====================================================
+" User hotkeys
+"=====================================================
+" ConqueTerm
+" запуск интерпретатора на F5
+nnoremap <F5> :ConqueTermSplit ipython<CR>
+" а debug-mode на <F6>
+nnoremap <F6> :exe "ConqueTermSplit ipython " . expand("%")<CR>
+let g:ConqueTerm_StartMessages = 0
+let g:ConqueTerm_CloseOnEnd = 0
+" проверка кода в соответствии с PEP8 через <leader>8
+autocmd FileType python map <buffer> <leader>8 :PymodeLint<CR>
+
+" автокомплит через <Ctrl+Space>
+imap <C-J> <C-x><C-o>
+
+" переключение между синтаксисами
+nnoremap <leader>sh :set ft=htmljinja<CR>
+nnoremap <leader>sp :set ft=python<CR>
+nnoremap <leader>sj :set ft=javascript<CR>
+nnoremap <leader>sc :set ft=css<CR>
+nnoremap <leader>sd :set ft=django<CR>
+
+"=====================================================
+" Languages support
+"=====================================================
+" --- Python ---
+"autocmd FileType python set completeopt-=preview " раскомментируйте, в случае, если не надо, чтобы jedi-vim показывал документацию по методу/классу
+autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 formatoptions+=croq softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+
+" --- JavaScript ---
+let javascript_enable_domhtmlcss=1
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd BufNewFile,BufRead *.json setlocal ft=javascript
+
+" --- HTML ---
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+" --- template language support (SGML / XML too) ---
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd bufnewfile,bufread *.rhtml setlocal ft=eruby
+autocmd BufNewFile,BufRead *.mako setlocal ft=mako
+autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
+autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
+let html_no_rendering=1
+let g:closetag_default_xml=1
+let g:sparkupNextMapping='<c-l>'
+autocmd FileType html,htmldjango,htmljinja,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako source ~/.vim/scripts/closetag.vim
+
+" --- CSS ---
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+
+" указываем каталог с настройками SnipMate
+let g:snippets_dir = "~/.vim/vim-snippets/snippets"
+
+"  при переходе за границу в 80 символов в Ruby/Python/js/C/C++ подсвечиваем на темном фоне текст
+augroup vimrc_autocmds
+    autocmd!
+    autocmd FileType rubyython,javascript,c,cpp highlight Excess ctermbg=DarkGrey guibg=Black
+    autocmd FileType rubyython,javascript,c,cpp match Excess /\%80v.*/
+    autocmd FileType rubyython,javascript,c,cpp set nowrap
+augroup END
+
+" указываем каталог с настройками SnipMate
+let g:snippets_dir = "~/.vim/vim-snippets/snippets"
 

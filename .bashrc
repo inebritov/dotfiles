@@ -4,7 +4,7 @@
 
 # If not running interactively, don't do anything
 case $- in
-	*i*) ;;
+    *i*) ;;
       *) return;;
 esac
 
@@ -50,13 +50,13 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-	TERM=xterm-256color
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+    TERM=xterm-256color
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
@@ -71,7 +71,7 @@ unset color_prompt force_color_prompt
 case "$TERM" in
 xterm*|rxvt*)
     PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]\[\e[00;31m\]@\[\e[0m\]\[\e[00;36m\]\h\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\T\[\e[0m\]\[\e[00;37m\]]\[\e[0m\] \w \[\e[00;35m\]\\$\e[0m\] \n'
-	# PS1="[\e[0;32m\u@\h\e[m] \e[0;37m\w\e[m \e[0;35m\$\e[m \n"
+    # PS1="[\e[0;32m\u@\h\e[m] \e[0;37m\w\e[m \e[0;35m\$\e[m \n"
     # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
