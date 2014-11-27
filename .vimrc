@@ -43,10 +43,10 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Visual settings
-colorscheme eclipse
+colorscheme inkpot
 set number
-set listchars=tab:>-
 set list
+set listchars=tab:>-
 
 " ==========================================================================
 " Plugins settings
@@ -106,7 +106,8 @@ let g:pymode_lint_write=1
 let g:pymode_virtualenv=1
 
 let g:pymode_breakpoint=1
-let g:pymode_breakpoint_key="<Leader>b"
+let g:pymode_breakpoint_key="<Leader>B"
+map <Leader>b Oimport ipdb; ipdb.set_trace(); # BREAKPOINT
 
 let g:pymode_syntax=1
 let g:pymode_syntax_all=1
