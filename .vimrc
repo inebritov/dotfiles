@@ -32,7 +32,7 @@ map <Leader>. <esc>:bp<CR>
 map <Leader>w <esc>:bd<CR>
 map <Leader>f <esc>:b
 map <Leader>e <esc>:e
-map <Leader>Q :q!<CR>
+map <Leader>q1 :q!<CR>
 map <Leader>q :q<CR>
 map <Leader>s :update<CR>
 imap <C-S> <esc>:update<CR>
@@ -43,7 +43,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Visual settings
-colorscheme inkpot
+colorscheme af
 set number
 set list
 set listchars=tab:>-
@@ -100,7 +100,7 @@ let g:pymode_doc=0
 let g:pymode_doc_key='K'
 let g:pymode_lint=1
 let g:pymode_lint_checker="pyflakes,pep8"
-let g:pymode_lint_ignore="E501,W601,C0110"
+let g:pymode_lint_ignore="E501,W601,C0110,W391"
 let g:pymode_lint_write=1
 
 let g:pymode_virtualenv=1
@@ -131,7 +131,8 @@ let g:ConqueTerm_CloseOnEnd = 0
 autocmd FileType python map <buffer> <leader>8 :PymodeLint<CR>
 
 " автокомплит через <Ctrl+Space>
-imap <C-J> <C-x><C-o>
+imap <C-Space> <C-x><C-o>
+imap <C-k> <C-x><C-o>
 
 " переключение между синтаксисами
 nnoremap <leader>sh :set ft=htmljinja<CR>
