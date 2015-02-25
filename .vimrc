@@ -43,7 +43,9 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Visual settings
-colorscheme af
+colorscheme holokai
+set cursorline
+hi CursorLine   cterm=NONE ctermbg=0 ctermfg=NONE
 set number
 set list
 set listchars=tab:>-
@@ -100,7 +102,7 @@ let g:pymode_doc=0
 let g:pymode_doc_key='K'
 let g:pymode_lint=1
 let g:pymode_lint_checker="pyflakes,pep8"
-let g:pymode_lint_ignore="E501,W601,C0110,W391"
+let g:pymode_lint_ignore="E501,W601,W391"
 let g:pymode_lint_write=1
 
 let g:pymode_virtualenv=1
