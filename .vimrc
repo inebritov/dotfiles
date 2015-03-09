@@ -32,7 +32,6 @@ map <Leader>. <esc>:bp<CR>
 map <Leader>w <esc>:bd<CR>
 map <Leader>f <esc>:b
 map <Leader>e <esc>:e
-map <Leader>q1 :q!<CR>
 map <Leader>q :q<CR>
 map <Leader>s :update<CR>
 imap <C-S> <esc>:update<CR>
@@ -45,7 +44,8 @@ vnoremap > >gv
 " Visual settings
 colorscheme holokai
 set cursorline
-hi CursorLine   cterm=NONE ctermbg=0 ctermfg=NONE
+hi CursorLine   cterm=NONE ctermbg=233 ctermfg=NONE
+set hidden
 set number
 set list
 set listchars=tab:>-
@@ -83,41 +83,33 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_map="<c-p>"
 let g:ctrlp_cmd="CtrlP"
 
-" python folding
-" mkdir -p ~/.vim/ftplugin
-" wget -O ~/.vim/ftplugin/python_editing.vim
-" http://www.vim.org/scriptw/download_script.php?src_id=5492
-set nofoldenable
-
-" python-jedi
-let g:jedi#popup_select_first=0
-
 " python-mode
 " git clone http://github.com/klen/python-mode
-let g:pymode_rope=0
-let g:pymode_rope_completion=0
-let g:pymode_rope_complete_on_dot=0
+let pymode = 1
+let pymode_breakpoint = 1
+let pymode_breakpoint_bind = '<leader>b'
+let pymode_doc = 1
+let pymode_doc_bind = 'K'
+let pymode_folding = 1
+let pymode_indent = 1
+let pymode_lint_cwindow = 0
+let pymode_lint_ignore = 'E111,E501,W0311'
+let pymode_lint_message = 1
+let pymode_lint_on_fly = 0
+let pymode_lint_on_write = 1
+let pymode_lint_select = ''
+let pymode_lint_signs = 1
+let pymode_motion = 1
+let pymode_options = 1
+let pymode_paths = []
+let pymode_quickfix_maxheight = 6
+let pymode_quickfix_minheight = 3
+let pymode_rope = 1
+let pymode_run = 1
+let pymode_run_bind = '<leader>r'
+let pymode_trim_whitespaces = 1
+let pymode_virtualenv = 1
 
-let g:pymode_doc=0
-let g:pymode_doc_key='K'
-let g:pymode_lint=1
-let g:pymode_lint_checker="pyflakes,pep8"
-let g:pymode_lint_ignore="E501,W601,W391"
-let g:pymode_lint_write=1
-
-let g:pymode_virtualenv=1
-
-let g:pymode_breakpoint=1
-let g:pymode_breakpoint_key="<Leader>B"
-map <Leader>b Oimport ipdb; ipdb.set_trace(); # BREAKPOINT
-
-let g:pymode_syntax=1
-let g:pymode_syntax_all=1
-let g:pymode_syntax_indent_errors=g:pymode_syntax_all
-let g:pymode_syntax_space_errors=g:pymode_syntax_all
-
-let g:pymode_folding=0
-let g:pymode_run=0
 
 "=====================================================
 " User hotkeys
@@ -125,16 +117,15 @@ let g:pymode_run=0
 " ConqueTerm
 " запуск интерпретатора на F5
 nnoremap <F5> :ConqueTermSplit ipython<CR>
+
 " а debug-mode на <F6>
 nnoremap <F6> :exe "ConqueTermSplit ipython " . expand("%")<CR>
+
 let g:ConqueTerm_StartMessages = 0
 let g:ConqueTerm_CloseOnEnd = 0
-" проверка кода в соответствии с PEP8 через <leader>8
-autocmd FileType python map <buffer> <leader>8 :PymodeLint<CR>
 
 " автокомплит через <Ctrl+Space>
 imap <C-Space> <C-x><C-o>
-imap <C-k> <C-x><C-o>
 
 " переключение между синтаксисами
 nnoremap <leader>sh :set ft=htmljinja<CR>
@@ -147,7 +138,6 @@ nnoremap <leader>sd :set ft=django<CR>
 " Languages support
 "=====================================================
 " --- Python ---
-"autocmd FileType python set completeopt-=preview " раскомментируйте, в случае, если не надо, чтобы jedi-vim показывал документацию по методу/классу
 autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 formatoptions+=croq softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
@@ -173,6 +163,7 @@ autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako source ~/.vim/sc
 " --- CSS ---
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+
 
 " указываем каталог с настройками SnipMate
 let g:snippets_dir = "~/.vim/vim-snippets/snippets"
