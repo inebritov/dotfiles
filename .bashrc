@@ -35,6 +35,9 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+[ "$TERM" = "xterm" ] && TERM="xterm-256color"
+alias ls='ls --color'
+
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color) color_prompt=yes;;
@@ -61,7 +64,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]\[\e[00;31m\]@\[\e[0m\]\[\e[00;36m\]\h\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\t\[\e[0m\]\[\e[00;37m\]]\[\e[0m\] \w \[\e[00;35m\]\\$\e[0m\] \n'
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[0m\]\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]@\[\e[0m\]\[\e[00;36m\]\H\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;33m\]\t\[\e[0m\]\[\e[00;37m\]] \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\]\n\[\e[0m\]'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -70,7 +73,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]\[\e[00;31m\]@\[\e[0m\]\[\e[00;36m\]\h\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\t\[\e[0m\]\[\e[00;37m\]]\[\e[0m\] \w \[\e[00;35m\]\\$\e[0m\] \n'
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[0m\]\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]@\[\e[0m\]\[\e[00;36m\]\H\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;33m\]\t\[\e[0m\]\[\e[00;37m\]] \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\]\n\[\e[0m\]'
     # PS1="[\e[0;32m\u@\h\e[m] \e[0;37m\w\e[m \e[0;35m\$\e[m \n"
     # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
