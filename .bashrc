@@ -63,8 +63,40 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Bash function which first looks upwards from the current directory
+# to find a .git directory (or bails if there isn’t one to be found),
+# and then parses out the branch name from .git/HEAD
+function find_git_branch {
+    local dir=. head
+    until [ "$dir" -ef / ]; do
+        if [ -f "$dir/.git/HEAD" ]; then
+            head=$(< "$dir/.git/HEAD")
+            if [[ $head == ref:\ refs/heads/* ]]; then
+                git_branch=" (${head#*/*/})"
+            elif [[ $head != '' ]]; then
+                git_branch=' (detached)'
+            else
+                git_branch=' (unknown)'
+            fi
+            return
+        fi
+        dir="../$dir"
+    done
+    git_branch=''
+}
+
+PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
+
+# colors
+color_white=$'\e[00;37m'
+color_cyan=$'\e[1;34m'
+color_green=$'\e[1;32m'
+color_yellow=$'\e[1;33m'
+color_magenta=$'\e[1;35m'
+color_normal=$'\e[0m'
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[0m\]\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]@\[\e[0m\]\[\e[00;36m\]\H\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;33m\]\t\[\e[0m\]\[\e[00;37m\]] \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\]\n\[\e[0m\]'
+    PS1='${debian_chroot:+($debian_chroot)}\[$color_white\][\[$color_cyan\]\u\[$color_white\]@\[$color_cyan\]\H\[$color_white\]] [\[$color_green\]\d \t\[$color_white\]] \[$color_normal\]\w\[$color_white\]$git_branch \[$color_magenta\]\\$ \n\[$color_normal\]'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -73,7 +105,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[00;37m\][\[\e[0m\]\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]@\[\e[0m\]\[\e[00;36m\]\H\[\e[0m\]\[\e[00;37m\]] [\[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;33m\]\t\[\e[0m\]\[\e[00;37m\]] \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\]\n\[\e[0m\]'
+    PS1='${debian_chroot:+($debian_chroot)}\[$color_white\][\[$color_cyan\]\u\[$color_white\]@\[$color_cyan\]\H\[$color_white\]] [\[$color_green\]\d \t\[$color_white\]] \[$color_normal\]\w\[$color_white\]$git_branch \[$color_magenta\]\\$ \n\[$color_normal\]'
     # PS1="[\e[0;32m\u@\h\e[m] \e[0;37m\w\e[m \e[0;35m\$\e[m \n"
     # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
