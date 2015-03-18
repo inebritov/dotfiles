@@ -89,14 +89,16 @@ PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 
 # colors
 color_white=$'\e[00;37m'
-color_cyan=$'\e[1;34m'
+color_cyan=$'\e[00;36m'
 color_green=$'\e[1;32m'
 color_yellow=$'\e[1;33m'
 color_magenta=$'\e[1;35m'
 color_normal=$'\e[0m'
 
+user_prompt='${debian_chroot:+($debian_chroot)}\[$color_cyan\]\w\[$color_green\]$git_branch \[$color_magenta\]\\$ \[$color_normal\]'
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[$color_white\][\[$color_cyan\]\u\[$color_white\]@\[$color_cyan\]\H\[$color_white\]] [\[$color_green\]\d \t\[$color_white\]] \[$color_normal\]\w\[$color_white\]$git_branch \[$color_magenta\]\\$ \n\[$color_normal\]'
+    PS1=$user_prompt
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -105,7 +107,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1='${debian_chroot:+($debian_chroot)}\[$color_white\][\[$color_cyan\]\u\[$color_white\]@\[$color_cyan\]\H\[$color_white\]] [\[$color_green\]\d \t\[$color_white\]] \[$color_normal\]\w\[$color_white\]$git_branch \[$color_magenta\]\\$ \n\[$color_normal\]'
+    PS1=$user_prompt
     # PS1="[\e[0;32m\u@\h\e[m] \e[0;37m\w\e[m \e[0;35m\$\e[m \n"
     # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
