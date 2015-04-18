@@ -6,7 +6,8 @@ syntax on
 " Vim behavior
 let mapleader=","
 
-set mouse=a
+set mouse=
+set nopaste
 set history=700
 set undolevels=800
 
@@ -21,25 +22,38 @@ set nobackup
 set nowritebackup
 set noswapfile
 set bs=2
-set pastetoggle=<Leader>p
 set clipboard=unnamed
 set whichwrap=<,>,[,],h,l
 
-map <C-S> <esc>:update<CR>
-map <C-Q> <esc>:q<CR>
-map <Leader>, <esc>:bn<CR>
-map <Leader>. <esc>:bp<CR>
-map <Leader>w <esc>:bd<CR>
-map <Leader>f <esc>:b
-map <Leader>e <esc>:e
-map <Leader>q :q<CR>
-map <Leader>s :update<CR>
-imap <C-S> <esc>:update<CR>
-imap <C-Q> <esc>:q<CR>
+" save, quit
+map <C-s> <esc>:update<CR>
+map <C-q> <esc>:q<CR>
+imap <C-s> <esc>:update<CR>
+imap <C-q> <esc>:q<CR>
 
+" insertion mode navigation
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+" buffers navigation
+" TODO: implement
+" noremap <C-Right> :bn<CR>
+" inoremap <C-Right> <esc>:bn<CR>
+" noremap <C-Left> <C-W>l
+" inoremap <C-Left> <C-W>l
+
+" line movement
 vnoremap o :sort<CR>
-vnoremap < <gv
-vnoremap > >gv
+vnoremap <S-h> <gv
+vnoremap <S-l> >gv
+inoremap <S-j> <Esc>:m .+1<CR>==gi
+inoremap <S-k> <Esc>:m .-2<CR>==gi
+nnoremap <S-k> :m .-2<CR>==
+nnoremap <S-j> :m .+1<CR>==
+vnoremap <S-j> :m '>+1<CR>gv=gv
+vnoremap <S-k> :m '<-2<CR>gv=gv
 
 " Visual settings
 colorscheme holokai
@@ -72,43 +86,38 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-" linemovement
-" git clone https://github.com/yueyoum/vim-linemovement ~/.vim/bundle/vim-linemovement
-let g:linemovement_up="<s-Up>"
-let g:linemovement_down="<s-Down>"
-
 " ctrlp
 " git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp.vim
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_map="<c-p>"
-let g:ctrlp_cmd="CtrlP"
+"let g:ctrlp_show_hidden = 1
+"let g:ctrlp_map="<c-p>"
+"let g:ctrlp_cmd="CtrlP"
 
 " python-mode
 " git clone http://github.com/klen/python-mode
-let pymode = 1
-let pymode_breakpoint = 1
-let pymode_breakpoint_bind = '<leader>b'
-let pymode_doc = 1
-let pymode_doc_bind = 'K'
-let pymode_folding = 1
-let pymode_indent = 1
-let pymode_lint_cwindow = 0
-let pymode_lint_ignore = 'E111,E501,W0311'
-let pymode_lint_message = 1
-let pymode_lint_on_fly = 0
-let pymode_lint_on_write = 1
-let pymode_lint_select = ''
-let pymode_lint_signs = 1
-let pymode_motion = 1
-let pymode_options = 1
-let pymode_paths = []
-let pymode_quickfix_maxheight = 6
-let pymode_quickfix_minheight = 3
-let pymode_rope = 1
-let pymode_run = 1
-let pymode_run_bind = '<leader>r'
-let pymode_trim_whitespaces = 1
-let pymode_virtualenv = 1
+"let pymode = 1
+"let pymode_breakpoint = 1
+"let pymode_breakpoint_bind = '<leader>b'
+"let pymode_doc = 1
+"let pymode_doc_bind = 'K'
+"let pymode_folding = 1
+"let pymode_indent = 1
+"let pymode_lint_cwindow = 0
+"let pymode_lint_ignore = 'E111,E501,W0311'
+"let pymode_lint_message = 1
+"let pymode_lint_on_fly = 0
+"let pymode_lint_on_write = 1
+"let pymode_lint_select = ''
+"let pymode_lint_signs = 1
+"let pymode_motion = 1
+"let pymode_options = 1
+"let pymode_paths = []
+"let pymode_quickfix_maxheight = 6
+"let pymode_quickfix_minheight = 3
+"let pymode_rope = 1
+"let pymode_run = 1
+"let pymode_run_bind = '<leader>r'
+"let pymode_trim_whitespaces = 1
+"let pymode_virtualenv = 1
 
 
 "=====================================================
@@ -116,23 +125,22 @@ let pymode_virtualenv = 1
 "=====================================================
 " ConqueTerm
 " запуск интерпретатора на F5
-nnoremap <F5> :ConqueTermSplit ipython<CR>
+"nnoremap <F5> :ConqueTermSplit ipython<CR>
 
 " а debug-mode на <F6>
-nnoremap <F6> :exe "ConqueTermSplit ipython " . expand("%")<CR>
+"nnoremap <F6> :exe "ConqueTermSplit ipython " . expand("%")<CR>
 
-let g:ConqueTerm_StartMessages = 0
-let g:ConqueTerm_CloseOnEnd = 0
+"let g:ConqueTerm_StartMessages = 0
+"let g:ConqueTerm_CloseOnEnd = 0
 
-" автокомплит через <Ctrl+Space>
-imap <C-Space> <C-x><C-o>
+"imap <C-Space> <C-x><C-o>
 
 " переключение между синтаксисами
-nnoremap <leader>sh :set ft=htmljinja<CR>
-nnoremap <leader>sp :set ft=python<CR>
-nnoremap <leader>sj :set ft=javascript<CR>
-nnoremap <leader>sc :set ft=css<CR>
-nnoremap <leader>sd :set ft=django<CR>
+"nnoremap <leader>sh :set ft=htmljinja<CR>
+"nnoremap <leader>sp :set ft=python<CR>
+"nnoremap <leader>sj :set ft=javascript<CR>
+"nnoremap <leader>sc :set ft=css<CR>
+"nnoremap <leader>sd :set ft=django<CR>
 
 "=====================================================
 " Languages support
@@ -175,7 +183,4 @@ augroup vimrc_autocmds
     autocmd FileType rubyython,javascript,c,cpp match Excess /\%80v.*/
     autocmd FileType rubyython,javascript,c,cpp set nowrap
 augroup END
-
-" указываем каталог с настройками SnipMate
-let g:snippets_dir = "~/.vim/vim-snippets/snippets"
 
