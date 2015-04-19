@@ -7,10 +7,9 @@ syntax on
 let mapleader=","
 
 set mouse=
-set nopaste
+set pastetoggle=<F2>
 set history=700
 set undolevels=800
-
 set tabstop=4 shiftwidth=4 expandtab
 
 set hlsearch
@@ -18,17 +17,24 @@ set incsearch
 set ignorecase
 set smartcase
 
-set nobackup
-set nowritebackup
-set noswapfile
+" Automatically create .backup directory, writable by the group.
+if filewritable("~") && !filewritable("~/.vimbackup")
+  silent execute '!umask 002; mkdir ~/.vimbackup'
+endif
+
+set backupdir=~/.vimbackup/
+set directory=~/.vimbackup/
 set bs=2
 set clipboard=unnamed
 set whichwrap=<,>,[,],h,l
 
+" buffers navigation
+nnoremap <F5> :buffers<CR>:buffer<Space>
+
 " save, quit
-map <C-s> <esc>:update<CR>
+map <C-s> <esc>:w<CR>
 map <C-q> <esc>:q<CR>
-imap <C-s> <esc>:update<CR>
+imap <C-s> <esc>:w<CR>
 imap <C-q> <esc>:q<CR>
 
 " insertion mode navigation
@@ -36,13 +42,6 @@ inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
-
-" buffers navigation
-" TODO: implement
-" noremap <C-Right> :bn<CR>
-" inoremap <C-Right> <esc>:bn<CR>
-" noremap <C-Left> <C-W>l
-" inoremap <C-Left> <C-W>l
 
 " line movement
 vnoremap o :sort<CR>
@@ -86,11 +85,10 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-" ctrlp
 " git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp.vim
 "let g:ctrlp_show_hidden = 1
-"let g:ctrlp_map="<c-p>"
-"let g:ctrlp_cmd="CtrlP"
+let g:ctrlp_map="<c-p>"
+let g:ctrlp_cmd="CtrlP"
 
 " python-mode
 " git clone http://github.com/klen/python-mode
