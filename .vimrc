@@ -19,7 +19,7 @@ set smartcase
 
 " Automatically create .backup directory, writable by the group.
 if filewritable("~") && !filewritable("~/.vimbackup")
-  silent execute '!umask 002; mkdir ~/.vimbackup'
+  silent execute 'mkdir ~/.vimbackup; chmod -R 775 ~/.vimbackup'
 endif
 
 set backupdir=~/.vimbackup/
