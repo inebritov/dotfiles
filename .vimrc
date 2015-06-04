@@ -1,13 +1,14 @@
 " Terminal settings
 set encoding=utf-8
-filetype plugin indent on
+filetype plugin indent off
 syntax on
+map <F9> :!python %<CR>
 
-" Vim behavior
 let mapleader=","
 
+" Vim behavior
 set mouse=
-set pastetoggle=<F2>
+set pastetoggle=<F4>
 set history=700
 set undolevels=800
 set tabstop=4 shiftwidth=4 expandtab
@@ -16,6 +17,10 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+set nosmartindent
+set noautoindent
+set nocindent
 
 " Automatically create .backup directory, writable by the group.
 if filewritable("~") && !filewritable("~/.vimbackup")
@@ -29,7 +34,10 @@ set clipboard=unnamed
 set whichwrap=<,>,[,],h,l
 
 " buffers navigation
-nnoremap <F5> :buffers<CR>:buffer<Space>
+map <C-PageUp> :bn<CR>
+imap <C-PageUp> :bn<CR>
+map <C-PageDown> :bp<CR>
+imap <C-PageDown> :bp<CR>
 
 " save, quit
 map <C-s> <esc>:w<CR>
@@ -44,13 +52,14 @@ inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
 " line movement
+map <Tab> >>
+map <S-Tab> <<
+map <C-d> yyp
 vnoremap o :sort<CR>
 vnoremap <S-h> <gv
 vnoremap <S-l> >gv
-inoremap <S-j> <Esc>:m .+1<CR>==gi
-inoremap <S-k> <Esc>:m .-2<CR>==gi
-nnoremap <S-k> :m .-2<CR>==
-nnoremap <S-j> :m .+1<CR>==
+nmap <S-j> :m .+1<CR>==
+nmap <S-k> :m .-2<CR>==
 vnoremap <S-j> :m '>+1<CR>gv=gv
 vnoremap <S-k> :m '<-2<CR>gv=gv
 
@@ -62,6 +71,7 @@ set hidden
 set number
 set list
 set listchars=tab:>-
+
 
 " ==========================================================================
 " Plugins settings
@@ -90,62 +100,13 @@ let g:airline#extensions#tabline#enabled = 1
 let g:ctrlp_map="<c-p>"
 let g:ctrlp_cmd="CtrlP"
 
-" python-mode
-" git clone http://github.com/klen/python-mode
-"let pymode = 1
-"let pymode_breakpoint = 1
-"let pymode_breakpoint_bind = '<leader>b'
-"let pymode_doc = 1
-"let pymode_doc_bind = 'K'
-"let pymode_folding = 1
-"let pymode_indent = 1
-"let pymode_lint_cwindow = 0
-"let pymode_lint_ignore = 'E111,E501,W0311'
-"let pymode_lint_message = 1
-"let pymode_lint_on_fly = 0
-"let pymode_lint_on_write = 1
-"let pymode_lint_select = ''
-"let pymode_lint_signs = 1
-"let pymode_motion = 1
-"let pymode_options = 1
-"let pymode_paths = []
-"let pymode_quickfix_maxheight = 6
-"let pymode_quickfix_minheight = 3
-"let pymode_rope = 1
-"let pymode_run = 1
-"let pymode_run_bind = '<leader>r'
-"let pymode_trim_whitespaces = 1
-"let pymode_virtualenv = 1
-
-
-"=====================================================
-" User hotkeys
-"=====================================================
-" ConqueTerm
-" запуск интерпретатора на F5
-"nnoremap <F5> :ConqueTermSplit ipython<CR>
-
-" а debug-mode на <F6>
-"nnoremap <F6> :exe "ConqueTermSplit ipython " . expand("%")<CR>
-
-"let g:ConqueTerm_StartMessages = 0
-"let g:ConqueTerm_CloseOnEnd = 0
-
-"imap <C-Space> <C-x><C-o>
-
-" переключение между синтаксисами
-"nnoremap <leader>sh :set ft=htmljinja<CR>
-"nnoremap <leader>sp :set ft=python<CR>
-"nnoremap <leader>sj :set ft=javascript<CR>
-"nnoremap <leader>sc :set ft=css<CR>
-"nnoremap <leader>sd :set ft=django<CR>
 
 "=====================================================
 " Languages support
 "=====================================================
 " --- Python ---
-autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 formatoptions+=croq softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+autocmd FileType python setlocal nosmartindent noautoindent expandtab shiftwidth=4 tabstop=8 formatoptions+=croq softtabstop=4 cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
 " --- JavaScript ---
 let javascript_enable_domhtmlcss=1
@@ -158,7 +119,7 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd bufnewfile,bufread *.rhtml setlocal ft=eruby
 autocmd BufNewFile,BufRead *.mako setlocal ft=mako
-autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
+autocmd BufNewFile,BufRead *.html setlocal ft=htmljinja
 autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
 let html_no_rendering=1
 let g:closetag_default_xml=1
@@ -177,8 +138,8 @@ let g:snippets_dir = "~/.vim/vim-snippets/snippets"
 "  при переходе за границу в 80 символов в Ruby/Python/js/C/C++ подсвечиваем на темном фоне текст
 augroup vimrc_autocmds
     autocmd!
-    autocmd FileType rubyython,javascript,c,cpp highlight Excess ctermbg=DarkGrey guibg=Black
-    autocmd FileType rubyython,javascript,c,cpp match Excess /\%80v.*/
-    autocmd FileType rubyython,javascript,c,cpp set nowrap
+    autocmd FileType ruby,python,javascript,c,cpp highlight Excess ctermbg=DarkGrey guibg=Black
+    autocmd FileType ruby,python,javascript,c,cpp match Excess /\%80v.*/
+    autocmd FileType ruby.python,javascript,c,cpp set nowrap
 augroup END
 
