@@ -1,6 +1,62 @@
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+call plug#begin('~/.vim/plugged')
+
+" navigation
+Plug 'kien/ctrlp'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jlanzarotta/bufexplorer'
+
+" bars
+Plug 'bling/vim-airline'
+Plug 'edkolev/promptline.vim'
+
+" editor
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'yueyoum/vim-linemovement'
+
+" colorschemes
+Plug 'changyuheng/color-scheme-holokai-for-vim'
+
+" python
+Plug 'davidhalter/jedi-vim'
+
+" git
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+"" Plugin settings
+
+
+" airline
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#hunks#enabled=1
+let g:airline#extensions#branch#enabled=1
+"let g:airline_left_sep = ' '
+"let g:airline_right_sep = ' '
+
+" ctrlp
+let g:ctrlp_map="<c-p>"
+let g:ctrlp_cmd="CtrlPMixed"
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+"" User settings
+
+
 " Terminal settings
 set encoding=utf-8
-filetype plugin indent off
+filetype plugin indent on
 syntax on
 map <F9> :!python %<CR>
 
@@ -11,16 +67,13 @@ set mouse=a
 set pastetoggle=<F2>
 set history=700
 set undolevels=800
+set autoread
 set tabstop=4 shiftwidth=4 expandtab
 
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-
-set nosmartindent
-set noautoindent
-set nocindent
 
 " Automatically create .backup directory, writable by the group.
 if filewritable(".") && ! filewritable(".backup")
@@ -51,17 +104,23 @@ inoremap <C-l> <Right>
 " line movement
 map <Tab> >>
 map <S-Tab> <<
-imap <S-Tab> <esc><<
-map <C-d> yyp
+inoremap <S-Tab> <C-d>
 vnoremap o :sort<CR>
 vnoremap <S-h> <gv
 vnoremap <S-l> >gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 nmap <S-j> :m .+1<CR>==
 nmap <S-k> :m .-2<CR>==
 vnoremap <S-j> :m '>+1<CR>gv=gv
 vnoremap <S-k> :m '<-2<CR>gv=gv
 
-" Visual settings
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+"" Visual settings
+
+
 colorscheme holokai
 set cursorline
 hi CursorLine   cterm=NONE ctermbg=233 ctermfg=NONE
@@ -69,77 +128,3 @@ set hidden
 set number
 set list
 set listchars=tab:>-
-
-
-" ==========================================================================
-" Plugins settings
-" ==========================================================================
-
-" vim-colorschemes
-" cd ~/.vim
-" git init
-" git submodule add https://github.com/flazz/vim-colorschemes.git
-" cp -r vim-colorschemes/colors colors
-
-" pathogen
-" mkdir -p ~/.vim/autoload ~/.vim/bundle
-" curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-execute pathogen#infect()
-
-" vim-airline
-" git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
-" powerline fonts https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
-set laststatus=2
-let g:airline_powerline_fonts = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_left_sep = ' '
-let g:airline_right_sep = ' '
-
-" git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp.vim
-"let g:ctrlp_show_hidden = 1
-let g:ctrlp_map="<c-p>"
-let g:ctrlp_cmd="CtrlPMixed"
-
-
-"=====================================================
-" Languages support
-"=====================================================
-" --- Python ---
-autocmd FileType python setlocal nosmartindent noautoindent expandtab shiftwidth=4 tabstop=8 formatoptions+=croq softtabstop=4 cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-
-" --- JavaScript ---
-let javascript_enable_domhtmlcss=1
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd BufNewFile,BufRead *.json setlocal ft=javascript
-
-" --- HTML ---
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-" --- template language support (SGML / XML too) ---
-autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd bufnewfile,bufread *.rhtml setlocal ft=eruby
-autocmd BufNewFile,BufRead *.mako setlocal ft=mako
-autocmd BufNewFile,BufRead *.html setlocal ft=htmljinja
-autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
-let html_no_rendering=1
-let g:closetag_default_xml=1
-let g:sparkupNextMapping='<c-l>'
-autocmd FileType html,htmldjango,htmljinja,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako source ~/.vim/scripts/closetag.vim
-
-" --- CSS ---
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-
-
-" указываем каталог с настройками SnipMate
-let g:snippets_dir = "~/.vim/vim-snippets/snippets"
-
-"  при переходе за границу в 80 символов в Ruby/Python/js/C/C++ подсвечиваем на темном фоне текст
-augroup vimrc_autocmds
-    autocmd!
-    autocmd FileType ruby,python,javascript,c,cpp highlight Excess ctermbg=DarkGrey guibg=Black
-    autocmd FileType ruby,python,javascript,c,cpp match Excess /\%80v.*/
-    autocmd FileType ruby.python,javascript,c,cpp set nowrap
-augroup END
-
