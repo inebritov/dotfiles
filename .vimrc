@@ -7,8 +7,8 @@ map <F9> :!python %<CR>
 let mapleader=","
 
 " Vim behavior
-set mouse=
-set pastetoggle=<F4>
+set mouse=a
+set pastetoggle=<F2>
 set history=700
 set undolevels=800
 set tabstop=4 shiftwidth=4 expandtab
@@ -23,21 +23,18 @@ set noautoindent
 set nocindent
 
 " Automatically create .backup directory, writable by the group.
-if filewritable("~") && !filewritable("~/.vimbackup")
-  silent execute 'mkdir ~/.vimbackup; chmod -R 775 ~/.vimbackup'
+if filewritable(".") && ! filewritable(".backup")
+  silent execute '!umask 002; mkdir .backup'
 endif
 
 set backupdir=~/.vimbackup/
 set directory=~/.vimbackup/
 set bs=2
-set clipboard=unnamed
+set clipboard=unnamedplus
 set whichwrap=<,>,[,],h,l
 
 " buffers navigation
-map <C-PageUp> :bn<CR>
-imap <C-PageUp> :bn<CR>
-map <C-PageDown> :bp<CR>
-imap <C-PageDown> :bp<CR>
+map <C-b> :buffers<CR>
 
 " save, quit
 map <C-s> <esc>:w<CR>
@@ -54,6 +51,7 @@ inoremap <C-l> <Right>
 " line movement
 map <Tab> >>
 map <S-Tab> <<
+imap <S-Tab> <esc><<
 map <C-d> yyp
 vnoremap o :sort<CR>
 vnoremap <S-h> <gv
@@ -92,13 +90,15 @@ execute pathogen#infect()
 " git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 " powerline fonts https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
 set laststatus=2
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
 
 " git clone https://github.com/kien/ctrlp.vim ~/.vim/bundle/ctrlp.vim
 "let g:ctrlp_show_hidden = 1
 let g:ctrlp_map="<c-p>"
-let g:ctrlp_cmd="CtrlP"
+let g:ctrlp_cmd="CtrlPMixed"
 
 
 "=====================================================

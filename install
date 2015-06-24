@@ -1,8 +1,14 @@
 #!/bin/bash
 
+## dotfiles
 cp .vimrc ~/.vimrc
 cp .bashrc ~/.bashrc
+cp .tmux.conf ~/.tmux.conf
 cp .SFConsole ~/.SFConsole
+
+## scripts
+mkdir -p ~/bin
+cp gsw ~/bin/
 
 echo Done!
 
