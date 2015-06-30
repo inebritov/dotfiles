@@ -17,6 +17,7 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'yueyoum/vim-linemovement'
 Plug 'Yggdroot/indentLine'
+Plug 'gregsexton/MatchTag'
 
 " colorschemes
 Plug 'changyuheng/color-scheme-holokai-for-vim'
@@ -30,6 +31,10 @@ Plug 'davidhalter/jedi-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " Plug 'Xuyuanp/nerdtree-git-plugin' " Dont works. Dont know why.
+
+" other
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
 call plug#end()
 
@@ -83,6 +88,12 @@ imap <F5> <esc>:TagbarToggle<CR>
 " python-syntax
 let python_highlight_all = 1
 
+" vim-session
+let g:session_directory = "~/.vim/tmp/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+
+
 """""""""""""""""""""""""""""""""""""""""""""""
 "" User settings
 
@@ -135,7 +146,9 @@ inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
+map <C-o> o<esc>
 imap <C-o> <esc>o
+nmap <bs> X
 
 " line movement
 map <Tab> >>
@@ -171,8 +184,3 @@ vmap <S-Up> k
 map <S-Down> vj
 imap <S-Down> <esc>vj
 vmap <S-Down> j
-
-" html tags
-autocmd FileType html let b:match_words ='<\(\w\w*\):</\1,{:}'
-autocmd FileType xhtml let b:match_words = '<\(\w\w*\):</\1,{:}'
-autocmd FileType xhtml let b:match_words = '<\(\w\w*\):</\1,{:}'
