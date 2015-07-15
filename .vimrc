@@ -12,9 +12,9 @@ Plug 'edkolev/promptline.vim'
 Plug 'majutsushi/tagbar'
 
 " editor
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neocomplete.vim'
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
 Plug 'yueyoum/vim-linemovement'
 Plug 'Yggdroot/indentLine'
 Plug 'gregsexton/MatchTag'
@@ -66,16 +66,18 @@ vmap <F3> <esc>:BufExplorer<CR>
 imap <F3> <esc><esc>:BufExplorer<CR>
 
 " neocomplete
-let g:acp_enableAtStartup = 0
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:acp_enableAtStartup = 0
+" let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#enable_smart_case = 1
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 " vim-jedi
-let g:jedi#auto_initialization = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-autocmd FileType python setlocal completeopt-=preview
+let g:jedi#goto_command = "<leader>b"
+let g:jedi#usages_command = "<M-F7>"
+" let g:jedi#auto_initialization = 0
+" let g:jedi#popup_on_dot = 0
+" let g:jedi#popup_select_first = 0
+" autocmd FileType python setlocal completeopt-=preview
 
 " indentLine
 let g:indentLine_color_term = 239
