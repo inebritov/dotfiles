@@ -77,7 +77,7 @@ let g:jedi#usages_command = "<M-F7>"
 " let g:jedi#auto_initialization = 0
 " let g:jedi#popup_on_dot = 0
 " let g:jedi#popup_select_first = 0
-" autocmd FileType python setlocal completeopt-=preview
+autocmd FileType python setlocal completeopt-=preview
 
 " indentLine
 let g:indentLine_color_term = 239
@@ -121,13 +121,13 @@ set incsearch
 set ignorecase
 set smartcase
 
-" Automatically create .backup directory, writable by the group.
-if filewritable(".") && ! filewritable(".backup")
-  silent execute '!umask 002; mkdir .backup'
+" Automatically create backup directory.
+if ! filewritable("~/vim/backup")
+  silent !mkdir ~/.vim/backup > /dev/null 2>&1
 endif
 
-set backupdir=~/.vimbackup/
-set directory=~/.vimbackup/
+set backupdir=~/.vim/backup/
+set directory=~/.vim/backup/
 set bs=2
 set whichwrap=<,>,[,],h,l
 
