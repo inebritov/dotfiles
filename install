@@ -12,10 +12,6 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
     echo "Vim-Plug installed"
 fi
 
-## scripts
-mkdir -p ~/bin
-cp gsw ~/bin/
-
 ## fonts
 if [ ! -d ~/.fonts ]; then
     curl -fLo ~/.fonts/PowerlineSymbols.otf --create-dirs https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otfs://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
