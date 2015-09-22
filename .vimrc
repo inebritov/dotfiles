@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'terryma/vim-smooth-scroll'
+Plug 'rbgrouleff/bclose.vim'
 
 " bars
 Plug 'bling/vim-airline'
@@ -55,6 +56,9 @@ let g:indentLine_color_term=239
 " python-syntax
 let python_highlight_all=1
 
+" bclose
+let bclose_multiple = 0
+
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Files
@@ -93,7 +97,7 @@ syntax on
 " Vim behavior
 set mouse=a
 set showmode
-set clipboard=unnamed
+set clipboard=unnamedplus
 set history=700
 set undolevels=800
 set autoread
@@ -116,7 +120,7 @@ set whichwrap=<,>,[,],h,l
 " Leader
 let mapleader="\<Space>"
 let g:jedi#goto_command='<leader>b'
-map <leader>d <esc>:bd<CR>
+map <leader>d <esc>:bclose<CR>
 map <leader>h <esc>:noh<CR>
 
 " Fn
