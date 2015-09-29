@@ -45,6 +45,7 @@ let g:airline#extensions#branch#enabled=1
 
 " NERDTree
 let NERDSpaceDelims=1
+let NERDTreeQuitOnOpen=1
 autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTreeType') && b:NERDTreeType == 'primary') | q | endif
 
 " vim-jedi
@@ -63,15 +64,23 @@ let bclose_multiple = 0
 """""""""""""""""""""""""""""""""""""""""""""""
 " Files
 
-" Automatically create backup directory.
-if ! filewritable("~/vim/backup")
+" Automatically create backup, swap and undo directories.
+if ! filewritable("~/.vim/backup")
     silent ! mkdir -pm 777 ~/.vim/backup > /dev/null 3>&1
 endif
 
-set backupdir=~/.vim/backup/
-set directory=~/.vim/backup/
+if ! filewritable("~/.vim/swap")
+    silent ! mkdir -pm 777 ~/.vim/swap > /dev/null 3>&1
+endif
 
-let NERDTreeIgnore=['\.pyc$']
+if ! filewritable("~/.vim/undo")
+    silent ! mkdir -pm 777 ~/.vim/undo > /dev/null 3>&1
+endif
+
+" The '//' ending means full file names  
+set undodir=~/.vim/undo//
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -120,7 +129,7 @@ set whichwrap=<,>,[,],h,l
 " Leader
 let mapleader="\<Space>"
 let g:jedi#goto_command='<leader>b'
-map <leader>d <esc>:bclose<CR>
+map <leader>d <esc>:Bclose<CR>
 map <leader>h <esc>:noh<CR>
 
 " Fn
@@ -156,7 +165,6 @@ imap <C-l> <S-Right>
 map <C-s> <esc>:w<CR>
 map <C-q> <esc>:q<CR>
 imap <C-s> <esc>:w<CR>
-map <C-q> <esc>:q<CR>
 
 map <C-o> o<esc>
 imap <C-o> <esc>o
@@ -192,3 +200,5 @@ vmap <Tab> >gv
 " Other
 nmap <bs> X
 vnoremap o :sort<CR>
+map + <C-w>>
+map - <C-w><
