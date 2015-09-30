@@ -192,10 +192,22 @@ vmap <S-j> <Down>
 vmap <S-h> <Left>
 vmap <S-l> <Right>
 
+map <S-Up> vk
+map <S-Down> vj
+map <S-Left> vh
+map <S-Right> vl
+vmap <S-Up> k
+vmap <S-Down> j
+vmap <S-Left> h
+vmap <S-Right> l
+imap <S-Up> <esc>vk
+imap <S-Down> <esc>vj
+imap <S-Left> <esc>vh
+imap <S-Right> <esc>vl
+
 " Tab
 nmap <Tab> >>
 vmap <Tab> >gv
-
 
 " Other
 nmap <bs> X
