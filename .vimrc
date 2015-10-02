@@ -29,6 +29,7 @@ Plug 'hdima/python-syntax'
 
 " python
 Plug 'davidhalter/jedi-vim'
+Plug 'lambdalisue/vim-pyenv'
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -211,6 +212,8 @@ nmap <Tab> >>
 vmap <Tab> >gv
 
 " Other
+noremap p P
+noremap P gp
 nmap <bs> X
 vnoremap o :sort<CR>
 map + <C-w>>
