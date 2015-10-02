@@ -20,6 +20,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'yueyoum/vim-linemovement'
 Plug 'Yggdroot/indentLine'
 Plug 'gregsexton/MatchTag'
+Plug 'terryma/vim-multiple-cursors'
 
 " colorschemes
 Plug 'changyuheng/color-scheme-holokai-for-vim'
