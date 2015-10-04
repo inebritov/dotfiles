@@ -9,6 +9,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'rbgrouleff/bclose.vim'
+Plug 'kien/ctrlp.vim'
 
 " bars
 Plug 'bling/vim-airline'
@@ -52,6 +53,8 @@ autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTreeType') && b:NERDTree
 
 " vim-jedi
 autocmd FileType python setlocal completeopt-=preview
+let g:jedi#use_splits_not_buffers = "top"
+let g:jedi#show_call_signatures = "2"
 
 " indentLine
 let g:indentLine_color_term=239
@@ -61,6 +64,15 @@ let python_highlight_all=1
 
 " bclose
 let bclose_multiple = 0
+
+" ctrlp
+let g:ctrlp_cache_dir = "~/.cache/ctrlp"
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = {
+\   'dir':  '\v[\/]\.(git|hg|svn|__pycache__)$',
+\   'file': '\v\.(exe|so|dll|pyc)$',
+\   'link': 'some_bad_symbolic_links',
+\}
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -79,7 +91,7 @@ if ! filewritable("~/.vim/undo")
     silent ! mkdir -pm 777 ~/.vim/undo > /dev/null 3>&1
 endif
 
-" The '//' ending means full file names  
+" The '//' ending means full file names
 set undodir=~/.vim/undo//
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
@@ -107,7 +119,8 @@ syntax on
 
 " Vim behavior
 set mouse=a
-set showmode
+set noshowmode
+set showcmd
 set clipboard=unnamedplus
 set history=700
 set undolevels=800
@@ -130,8 +143,8 @@ set whichwrap=<,>,[,],h,l
 
 " Leader
 let mapleader="\<Space>"
-let g:jedi#goto_command='<leader>b'
-map <leader>d <esc>:Bclose<CR>
+let g:jedi#documentation_command="<leader>k"
+map <leader>x <esc>:Bclose<CR>
 map <leader>h <esc>:noh<CR>
 
 " Fn
@@ -152,7 +165,6 @@ imap <F5> <esc>:TagbarToggle<CR>
 map <F9> :!python %<CR>
 
 " Meta (alt)
-let g:jedi#usages_command='<M-F7>'
 map <M-Right> :bn<CR>
 map <M-Left> :bp<CR>
 imap <M-Right> <esc>:bn<CR>
