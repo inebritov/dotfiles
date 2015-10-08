@@ -22,6 +22,7 @@ Plug 'yueyoum/vim-linemovement'
 Plug 'Yggdroot/indentLine'
 Plug 'gregsexton/MatchTag'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'Shougo/neocomplete.vim'
 
 " colorschemes
 Plug 'changyuheng/color-scheme-holokai-for-vim'
@@ -52,9 +53,12 @@ let NERDTreeQuitOnOpen=1
 autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTreeType') && b:NERDTreeType == 'primary') | q | endif
 
 " vim-jedi
-autocmd FileType python setlocal completeopt-=preview
-let g:jedi#use_splits_not_buffers = "top"
 let g:jedi#show_call_signatures = "2"
+let g:jedi#use_splits_not_buffers = "top"
+
+" Neocomplete
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
 
 " indentLine
 let g:indentLine_color_term=239
@@ -73,6 +77,25 @@ let g:ctrlp_custom_ignore = {
 \   'file': '\v\.(exe|so|dll|pyc)$',
 \   'link': 'some_bad_symbolic_links',
 \}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" Completion
+
+autocmd FileType * setlocal completeopt-=preview
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=jedi#completions
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -171,10 +194,11 @@ imap <M-Right> <esc>:bn<CR>
 imap <M-Left> <esc>:bp<CR>
 
 " Ctrl
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-Space>
+
 nmap <C-h> b
 nmap <C-l> w
-imap <C-h> <S-Left>
-imap <C-l> <S-Right>
 
 map <C-s> <esc>:w<CR>
 map <C-q> <esc>:q<CR>
