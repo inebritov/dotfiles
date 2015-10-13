@@ -22,7 +22,6 @@ Plug 'yueyoum/vim-linemovement'
 Plug 'Yggdroot/indentLine'
 Plug 'gregsexton/MatchTag'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'Shougo/neocomplete.vim'
 
 " colorschemes
 Plug 'changyuheng/color-scheme-holokai-for-vim'
@@ -83,19 +82,8 @@ let g:ctrlp_custom_ignore = {
 " Completion
 
 autocmd FileType * setlocal completeopt-=preview
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType * setlocal omnifunc=syntaxcomplete#Complete
 autocmd FileType python setlocal omnifunc=jedi#completions
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -185,6 +173,7 @@ nmap <F5> :TagbarToggle<CR>
 vmap <F5> :TagbarToggle<CR>
 imap <F5> <esc>:TagbarToggle<CR>
 
+map <silent><F8> <esc>Oimport ipdb; ipdb.set_trace()<esc>j
 map <F9> :!python %<CR>
 
 " Meta (alt)
@@ -194,8 +183,8 @@ imap <M-Right> <esc>:bn<CR>
 imap <M-Left> <esc>:bp<CR>
 
 " Ctrl
-inoremap <C-Space> <C-x><C-o>
-inoremap <C-@> <C-Space>
+imap <C-Space> <C-x><C-o>
+imap <C-@> <C-Space>
 
 nmap <C-h> b
 nmap <C-l> w
