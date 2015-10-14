@@ -25,11 +25,12 @@ Plug 'terryma/vim-multiple-cursors'
 
 " colorschemes
 Plug 'changyuheng/color-scheme-holokai-for-vim'
-Plug 'pfdevilliers/Pretty-Vim-Python'
-Plug 'hdima/python-syntax'
+Plug 'kh3phr3n/python-syntax'
 
-" python
+" Completion
 Plug 'davidhalter/jedi-vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'ervandew/supertab'
 Plug 'lambdalisue/vim-pyenv'
 
 " git
@@ -55,15 +56,14 @@ autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTreeType') && b:NERDTree
 let g:jedi#show_call_signatures = "2"
 let g:jedi#use_splits_not_buffers = "top"
 
-" Neocomplete
-let g:acp_enableAtStartup = 0
-let g:neocomplete#enable_at_startup = 1
+" supertab
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " indentLine
-let g:indentLine_color_term=239
+let g:indentLine_color_term = 239
 
 " python-syntax
-let python_highlight_all=1
+let python_self_cls_highlight = 1
 
 " bclose
 let bclose_multiple = 0
@@ -83,6 +83,7 @@ let g:ctrlp_custom_ignore = {
 
 autocmd FileType * setlocal completeopt-=preview
 autocmd FileType * setlocal omnifunc=syntaxcomplete#Complete
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=jedi#completions
 
 
@@ -113,11 +114,11 @@ set directory=~/.vim/swap//
 
 colorscheme holokai
 set cursorline
-hi CursorLine cterm=NONE ctermbg=233 ctermfg=NONE
+set listchars=tab:>-,trail:·
+set list
 set hidden
 set number
-set list
-set listchars=tab:>-
+hi CursorLine cterm=NONE ctermbg=233 ctermfg=NONE
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -125,27 +126,28 @@ set listchars=tab:>-
 
 " Terminal settings
 filetype plugin indent on
+set clipboard=unnamedplus
 set encoding=utf-8
 syntax on
 
 " Vim behavior
+set autoread
+set expandtab
+set history=700
 set mouse=a
 set noshowmode
-set showcmd
-set clipboard=unnamedplus
-set history=700
-set undolevels=800
-set autoread
-set tabstop=4
 set shiftwidth=4
-set expandtab
+set showcmd
+set tabstop=4
+set undolevels=800
+set wildmenu
 
 set hlsearch
-set incsearch
 set ignorecase
+set incsearch
 set smartcase
 
-set bs=2
+set backspace=indent,eol,start
 set whichwrap=<,>,[,],h,l
 
 
