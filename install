@@ -14,7 +14,7 @@ fi
 
 ## fonts
 if [ ! -d ~/.fonts ]; then
-    curl -fLo ~/.fonts/PowerlineSymbols.otf --create-dirs https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otfs://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+    curl -fLo ~/.fonts/PowerlineSymbols.otf --create-dirs https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
     fc-cache -vf ~/.fonts/
     curl -fLo ~/.config/fontconfig/conf.d/10-powerline-symbols.conf --create-dirs https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
     echo "Powerline-patched fonts installed"
