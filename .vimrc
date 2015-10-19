@@ -195,17 +195,22 @@ map <C-s> <esc>:w<CR>
 map <C-q> <esc>:q<CR>
 imap <C-s> <esc>:w<CR>
 
-map <C-o> o<esc>
 imap <C-o> <esc>o
+nnoremap <C-j> gJ
 
-map <silent> <c-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
-map <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
-noremap <silent> <c-k> :call smooth_scroll#up(&scroll, 10, 2)<CR>
-noremap <silent> <c-j> :call smooth_scroll#down(&scroll, 10, 2)<CR>
-inoremap <silent> <c-k> <esc>:call smooth_scroll#up(&scroll, 10, 2)<CR>i
-inoremap <silent> <c-j> <esc>:call smooth_scroll#down(&scroll, 10, 2)<CR>i
-map <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
-map <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+map <silent> <C-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
+map <silent> <C-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
+map <silent> <C-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
+map <silent> <C-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+inoremap <silent> <C-u> <esc>:call smooth_scroll#up(&scroll, 10, 2)<CR>i
+inoremap <silent> <C-d> <esc>:call smooth_scroll#down(&scroll, 10, 2)<CR>i
+inoremap <silent> <C-b> <esc>:call smooth_scroll#up(&scroll*2, 10, 4)<CR>i
+inoremap <silent> <C-f> <esc>:call smooth_scroll#down(&scroll*2, 10, 4)<CR>i
+
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
 
 " Shift
 nmap <S-Tab> <<
