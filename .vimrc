@@ -47,14 +47,18 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#hunks#enabled=1
 let g:airline#extensions#branch#enabled=1
 
+" tagbar
+let g:tagbar_autofocus = 1
+
 " NERDTree
 let NERDSpaceDelims=1
-let NERDTreeQuitOnOpen=1
+let NERDTreeIgnore=['.pyc', '__pycache__']
 autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTreeType') && b:NERDTreeType == 'primary') | q | endif
 
 " vim-jedi
 let g:jedi#show_call_signatures = "2"
-let g:jedi#use_splits_not_buffers = "top"
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#popup_on_dot = 0
 
 " supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -128,6 +132,8 @@ hi CursorLine cterm=NONE ctermbg=233 ctermfg=NONE
 filetype plugin indent on
 set clipboard=unnamedplus
 set encoding=utf-8
+set esckeys
+set ttimeoutlen=1
 syntax on
 
 " Vim behavior
@@ -196,7 +202,6 @@ map <C-q> <esc>:q<CR>
 imap <C-s> <esc>:w<CR>
 
 imap <C-o> <esc>o
-nnoremap <C-j> gJ
 
 map <silent> <C-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
 map <silent> <C-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
@@ -206,6 +211,9 @@ inoremap <silent> <C-u> <esc>:call smooth_scroll#up(&scroll, 10, 2)<CR>i
 inoremap <silent> <C-d> <esc>:call smooth_scroll#down(&scroll, 10, 2)<CR>i
 inoremap <silent> <C-b> <esc>:call smooth_scroll#up(&scroll*2, 10, 4)<CR>i
 inoremap <silent> <C-f> <esc>:call smooth_scroll#down(&scroll*2, 10, 4)<CR>i
+
+map <silent> <C-k> :call smooth_scroll#up(&scroll, 10, 2)<CR>
+map <silent> <C-j> :call smooth_scroll#down(&scroll, 10, 2)<CR>
 
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
