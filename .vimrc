@@ -200,6 +200,7 @@ nmap <C-l> w
 map <C-s> <esc>:w<CR>
 map <C-q> <esc>:q<CR>
 imap <C-s> <esc>:w<CR>
+imap <C-v> <C-r>*
 
 imap <C-o> <esc>o
 
@@ -258,3 +259,15 @@ nmap <bs> X
 vnoremap o :sort<CR>
 map + <C-w>>
 map - <C-w><
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
