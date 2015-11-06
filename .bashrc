@@ -95,7 +95,13 @@ color_yellow=$'\e[1;33m'
 color_magenta=$'\e[1;35m'
 color_normal=$'\e[0m'
 
-user_prompt='${debian_chroot:+($debian_chroot)}\[$color_cyan\]\w\[$color_green\]$git_branch \[$color_magenta\]\\$ \[$color_normal\]'
+user_prompt='${debian_chroot:+($debian_chroot)}\[$color_cyan\]\w\[$color_green\]$git_branch'
+
+if [ "`whoami`" = "root" ]; then
+   user_prompt="$user_prompt \[$color_yellow\]# \[$color_normal\]"
+else
+   user_prompt="$user_prompt \[$color_magenta\]\\$ \[$color_normal\]"
+fi
 
 if [ "$color_prompt" = yes ]; then
     PS1=$user_prompt
@@ -166,7 +172,7 @@ if [ -f ~/.SFConsole ]; then
   source ~/.SFConsole
 fi
 
-export WORKON_HOME=~/.env
+export WORKON_HOME=~/.pyenv/versions
 
 # pip bash completion start
 _pip_completion()
@@ -179,6 +185,8 @@ complete -o default -F _pip_completion pip
 # pip bash completion end
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if [ -d $PYENV_ROOT ]; then
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
