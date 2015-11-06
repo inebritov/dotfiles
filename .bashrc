@@ -63,29 +63,35 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# Bash function which first looks upwards from the current directory
-# to find a .git directory (or bails if there isn’t one to be found),
-# and then parses out the branch name from .git/HEAD
-function find_git_branch {
-    local dir=. head
-    until [ "$dir" -ef / ]; do
-        if [ -f "$dir/.git/HEAD" ]; then
-            head=$(< "$dir/.git/HEAD")
-            if [[ $head == ref:\ refs/heads/* ]]; then
-                git_branch=" (${head#*/*/})"
-            elif [[ $head != '' ]]; then
-                git_branch=' (detached)'
-            else
-                git_branch=' (unknown)'
-            fi
-            return
-        fi
-        dir="../$dir"
+## Print nickname for git/hg/bzr/svn version control in CWD
+## Optional $1 of format string for printf, default "(%s) "
+function find_vcs_branch {
+  local dir="$PWD"
+  local vcs
+  local nick
+  while [[ "$dir" != "/" ]]; do
+    for vcs in git hg svn bzr; do
+      if [[ -d "$dir/.$vcs" ]] && hash "$vcs" &>/dev/null; then
+        case "$vcs" in
+          git) __git_ps1 "${1:-(%s) }"; return;;
+          hg) nick=$(hg branch 2>/dev/null);;
+          svn) nick=$(svn info 2>/dev/null\
+                | grep -e '^Repository Root:'\
+                | sed -e 's#.*/##');;
+          bzr)
+            local conf="${dir}/.bzr/branch/branch.conf" # normal branch
+            [[ -f "$conf" ]] && nick=$(grep -E '^nickname =' "$conf" | cut -d' ' -f 3)
+            conf="${dir}/.bzr/branch/location" # colo/lightweight branch
+            [[ -z "$nick" ]] && [[ -f "$conf" ]] && nick="$(basename "$(< $conf)")"
+            [[ -z "$nick" ]] && nick="$(basename "$(readlink -f "$dir")")";;
+        esac
+        [[ -n "$nick" ]] && printf "${1:-(%s) }" "$nick"
+        return 0
+      fi
     done
-    git_branch=''
+    dir="$(dirname "$dir")"
+  done
 }
-
-PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
 
 # colors
 color_white=$'\e[00;37m'
@@ -95,31 +101,27 @@ color_yellow=$'\e[1;33m'
 color_magenta=$'\e[1;35m'
 color_normal=$'\e[0m'
 
-user_prompt='${debian_chroot:+($debian_chroot)}\[$color_cyan\]\w\[$color_green\]$git_branch'
+# begining of prompt
+user_prompt='${debian_chroot:+($debian_chroot)}\[$color_cyan\]\w'
 
-if [ "`whoami`" = "root" ]; then
-   user_prompt="$user_prompt \[$color_yellow\]# \[$color_normal\]"
+# vcs branch
+if [ find_vcs_branch ]; then
+    user_prompt="$user_prompt \[$color_green\]\$(find_vcs_branch "$2")"
+fi
+
+# sign at the end of prompt
+if [ `whoami` = "root" ]; then
+   user_prompt="$user_prompt\[$color_yellow\]#"
 else
-   user_prompt="$user_prompt \[$color_magenta\]\\$ \[$color_normal\]"
+   user_prompt="$user_prompt\[$color_magenta\]\\$"
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1=$user_prompt
+    PS1="$user_prompt\[$color_normal\] "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1=$user_prompt
-    # PS1="[\e[0;32m\u@\h\e[m] \e[0;37m\w\e[m \e[0;35m\$\e[m \n"
-    # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
