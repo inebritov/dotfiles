@@ -27,15 +27,15 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'changyuheng/color-scheme-holokai-for-vim'
 Plug 'kh3phr3n/python-syntax'
 
-" Completion
+" completion
 Plug 'davidhalter/jedi-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
 Plug 'lambdalisue/vim-pyenv'
 
-" git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+" vcs
+Plug 'vim-scripts/vcscommand.vim'
+Plug 'mhinz/vim-signify'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 call plug#end()
