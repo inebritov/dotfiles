@@ -114,23 +114,12 @@ set directory=~/.vim/swap//
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
-"" Visual settings
-
-colorscheme holokai
-set cursorline
-set listchars=tab:>-,trail:·
-set list
-set hidden
-set number
-hi CursorLine cterm=NONE ctermbg=233 ctermfg=NONE
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""
 "" Vim settings
 
 " Terminal settings
 filetype plugin indent on
 set clipboard=unnamedplus
+scriptencoding utf-8
 set encoding=utf-8
 set esckeys
 set ttimeoutlen=1
@@ -155,6 +144,18 @@ set smartcase
 
 set backspace=indent,eol,start
 set whichwrap=<,>,[,],h,l
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+"" Visual settings
+
+colorscheme holokai
+set cursorline
+set listchars=tab:>-,trail:·
+set list
+set hidden
+set number
+hi CursorLine cterm=NONE ctermbg=233 ctermfg=NONE
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
