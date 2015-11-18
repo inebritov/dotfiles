@@ -174,6 +174,7 @@ if [ -f ~/.SFConsole ]; then
   source ~/.SFConsole
 fi
 
+export EDITOR=vim
 export WORKON_HOME=~/.pyenv/versions
 
 # pip bash completion start
