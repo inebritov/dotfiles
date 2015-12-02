@@ -53,7 +53,7 @@ let g:tagbar_autofocus = 1
 " NERDTree
 let NERDSpaceDelims=1
 let NERDTreeIgnore=['.pyc', '__pycache__']
-autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTreeType') && b:NERDTreeType == 'primary') | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " vim-jedi
 let g:jedi#show_call_signatures = "2"
